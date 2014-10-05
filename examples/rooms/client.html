@@ -9,7 +9,11 @@ io.emit('ready', room)
 
 // Listen for the announce event.
 io.on('announce', function(data) {
-    $('body').append('<p>'+data.message+ new Date().toString()+'</p>')
+    
+    // Removing the html tags to prevent XSS
+    var msg = $('<div/>').text(data.message).text();
+    
+    $('body').append('<p>'+msg+ new Date().toString()+'</p>')
 })
 
 </script>
